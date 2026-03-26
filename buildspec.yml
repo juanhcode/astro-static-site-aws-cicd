@@ -3,10 +3,12 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Instalando Node 22 directamente..."
-      # Habilitar NodeSource repo para Node 22
-      - curl -fsSL https://rpm.nodesource.com/setup_22.x | sudo bash -
-      - sudo yum install -y nodejs
+      - echo "Instalando nvm..."
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+      - . ~/.nvm/nvm.sh
+      - echo "Instalando Node 22..."
+      - nvm install 22
+      - nvm use 22
       - node -v
       - npm -v
       - echo "Instalando dependencias del proyecto..."
