@@ -3,20 +3,29 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing Node 22..."
-      - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-      - apt-get install -y nodejs
+      - echo "Instalando NVM y Node 22..."
+      # Instala NVM
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh | bash
+      # Configura NVM en el shell
+      - export NVM_DIR="$HOME/.nvm"
+      - "[ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\""
+      - nvm install 22
+      - nvm use 22
       - node -v
       - npm -v
-      - echo "Installing project dependencies..."
+      - echo "Instalando dependencias del proyecto..."
       - npm install
+
+  pre_build:
+    commands:
+      - echo "Preparando para build..."
 
   build:
     commands:
-      - echo "Building Astro project..."
+      - echo "Construyendo proyecto Astro..."
       - npm run build
 
 artifacts:
-  base-directory: dist
   files:
     - '**/*'
+  base-directory: dist
