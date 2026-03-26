@@ -3,12 +3,17 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing dependencies"
+      - echo "Installing Node 22..."
+      - curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+      - apt-get install -y nodejs
+      - node -v
+      - npm -v
+      - echo "Installing project dependencies..."
       - npm install
 
   build:
     commands:
-      - echo "Building Astro project"
+      - echo "Building Astro project..."
       - npm run build
 
 artifacts:
