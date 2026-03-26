@@ -1,11 +1,107 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="AWS Cloud Project | Home">
+
+<section class="hero">
+  <h2 id="hero-title" class="fade-in">Deploy en AWS, Simplificado</h2>
+  <p id="hero-subtitle" class="fade-in">CI/CD automático con S3 + CloudFront + CodePipeline</p>
+  
+  <div class="fade-in" style="transition-delay: 0.4s">
+    <button class="btn" id="deployBtn">Deploy Now</button>
+  </div>
+
+  <div class="metrics fade-in" style="transition-delay: 0.6s">
+    <div class="metric">
+      <h4 id="uptime">0%</h4>
+      <p>Uptime</p>
+    </div>
+    <div class="metric">
+      <h4 id="latency">0ms</h4>
+      <p>Latency</p>
+    </div>
+    <div class="metric">
+      <h4 id="deploys">0</h4>
+      <p>Deploys</p>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="feature fade-in">
+  <h3>Pipeline CI/CD</h3>
+  <div class="card">
+    <code>Código → Build → Deploy → CloudFront</code>
+  </div>
+</section>
+
+<section class="feature fade-in">
+  <h3>Infraestructura Serverless</h3>
+  <p>
+    S3 + CloudFront permite servir contenido global sin preocuparte por servidores.
+  </p>
+</section>
+
+<section class="feature fade-in">
+  <h3>Performance Global</h3>
+  <p>
+    Distribución en edge locations para baja latencia en todo el mundo.
+  </p>
+</section>
+
+<script>
+  // Manejo de animaciones al cargar y al hacer scroll
+  const setupAnimations = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    
+    // Forzar visibilidad de hero inmediatamente
+    setTimeout(() => {
+        document.getElementById('hero-title')?.classList.add('visible');
+        document.getElementById('hero-subtitle')?.classList.add('visible');
+    }, 100);
+  };
+
+  // Lógica de métricas
+  function animateMetrics() {
+    let uptime = 0;
+    let latency = 300;
+    let deploys = 0;
+
+    const interval = setInterval(() => {
+      if (uptime < 99) uptime += 1;
+      if (latency > 24) latency -= 4;
+      if (deploys < 142) deploys += 2;
+
+      const uptimeEl = document.getElementById("uptime");
+      const latencyEl = document.getElementById("latency");
+      const deploysEl = document.getElementById("deploys");
+
+      if (uptimeEl) uptimeEl.innerText = uptime + "%";
+      if (latencyEl) latencyEl.innerText = latency + "ms";
+      if (deploysEl) deploysEl.innerText = deploys.toString();
+
+      if (uptime >= 99 && latency <= 24) clearInterval(interval);
+    }, 30);
+  }
+
+  // Event Listeners
+  document.getElementById('deployBtn')?.addEventListener('click', () => {
+    alert("🚀 Deploy iniciado en AWS Cloud Project...");
+  });
+
+  // Inicialización
+  window.addEventListener('DOMContentLoaded', () => {
+    setupAnimations();
+    animateMetrics();
+  });
+</script>
+
 </Layout>
