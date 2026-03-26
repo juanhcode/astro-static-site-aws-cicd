@@ -2,13 +2,10 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 22
     commands:
-      - echo "Instalando nvm..."
-      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-      - . ~/.nvm/nvm.sh
-      - echo "Instalando Node 22..."
-      - nvm install 22
-      - nvm use 22
+      - echo "Verificando versiones de Node.js..."
       - node -v
       - npm -v
       - echo "Instalando dependencias del proyecto..."
