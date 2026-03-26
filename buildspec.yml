@@ -19,6 +19,7 @@ phases:
     commands:
       - echo "Construyendo proyecto Astro..."
       - npm run build
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
 
 artifacts:
   files:
